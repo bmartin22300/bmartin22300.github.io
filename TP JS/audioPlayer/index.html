@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script>
+		var c;
+		var audioplayer;
+		var ctx;
+		function init(){
+			c = document.getElementById('myCanvas');
+			ctx = c.getContext("2d");
+			ctx.beginPath();
+			ctx.arc(100, 75, 50, 0* Math.PI, 0 * Math.PI);
+			ctx.stroke();
+		}
+		function updateCanvas(){
+			ctx.clearRect(0, 0, c.width, c.height);
+			audioplayer = document.getElementById('player');
+			var timer = audioplayer.currentTime;
+			var duration = audioplayer.duration;
+			cte = (timer/duration)*2;
+			ctx.beginPath();
+			ctx.arc(100, 75, 50, 0* Math.PI, cte * Math.PI);
+			ctx.stroke();
+		}
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="myCanvas" width="200" height="200"></canvas>
+		<br>
+		<audio id="player" controls preload tabindex="0" ontimeupdate="updateCanvas()">
+			<source type="audio/mp3" src="./music_plongee_nocture.mp3"/>
+			Your browser does not support HTML5 audio.
+		</audio>
+	</body>
+</html>
