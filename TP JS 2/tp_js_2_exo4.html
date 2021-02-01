@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script>
+		var Carre = function(posx,posy,canvas,t)
+		{
+			this.canvas=canvas;
+			this.ctx=this.canvas.getContext("2d");
+			this.posx=posx;
+			this.posy=posy;
+			
+			this.clear = function()
+			{
+				ctx.clearRect(posx, posy, 50,50);
+			}
+			
+			this.update = function(){
+				posx+=10;
+			}
+			
+			this.draw = function(){
+				ctx.fillRect(posx, posy, 50, 50);
+			}
+			
+			this.loop = function(){
+				
+				this.clear();	
+				this.update();
+				this.draw();
+				if(posx-60==600){
+					clearInterval(t);//fix
+				}
+			}
+		}
+
+		var canvas;
+		var timer;
+		var d;
+		var ctx;
+		var posx;
+		var carre1, carre2, carre3;
+		function init(){
+			canvas = document.getElementById('canvas');
+			ctx = canvas.getContext('2d');
+			ctx.fillStyle = 'red';
+			carre1=new Carre(0,0,canvas,timer);
+			carre2=new Carre(0,60,canvas,timer);
+			carre3=new Carre(0,120,canvas,timer);
+			setTimeout(setTimer,3000);
+		}
+		function setTimer(){
+			this.timer = setInterval(gameLoop, 100);
+		}
+		function gameLoop(){
+			carre1.loop();
+			setTimeout(carre2loop,1000);
+			setTimeout(carre3loop,2000);
+		}
+		function carre2loop(){
+			carre2.loop();
+		}
+		function carre3loop(){
+			carre3.loop();
+		}
+		
+		
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="canvas" width="600px" height="600px"></canvas>
+		<br>
+	</body>
+</html>

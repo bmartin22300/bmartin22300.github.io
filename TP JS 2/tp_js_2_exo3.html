@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script>
+		var canvas;
+		var t;
+		var d;
+		var ctx;
+		var posx;
+		function init(){
+			canvas = document.getElementById('canvas');
+			d = setTimeout(setTimer,2000);
+			ctx = canvas.getContext('2d');
+			ctx.fillStyle = 'red';
+			posx=0;
+			ctx.fillRect(posx, 0, 50, 50);
+		}
+		function setTimer(){
+			t = setInterval(updateCanvas, 1000);
+		}
+		function updateCanvas(){
+			if(posx==540){
+				clearInterval(t);
+			}
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			posx+=10;
+			ctx.fillRect(posx, 0, 50, 50);
+		}
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="canvas" width="600px" height="600px"></canvas>
+		<br>
+	</body>
+</html>
