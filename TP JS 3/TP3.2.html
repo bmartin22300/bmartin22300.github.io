@@ -1,0 +1,60 @@
+https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch
+fournir votre propre objet requete
+
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script>
+		var textAreaInt;
+		var int;
+		function httpGet(theUrl)
+		{
+			var myHeaders = new Headers();
+			myHeaders.set('Access-Control-Allow-Origin','*');
+
+			var myInit = { method: 'GET',
+			       headers: myHeaders,
+			       mode: 'cors',
+			       cache: 'default' };
+
+			const myJsonObject = document.querySelector('JSON');
+
+			fetch(theUrl,myInit)
+			.then(function(response) {
+				if(response.ok) {
+					console.log("réponse ok");
+					return response.blob();
+				}else{
+					console.log("erreur réponse incorrect");
+				}
+			})
+			.then(function(myBlob) {
+			  //const objectURL = URL.createObjectURL(myBlob);
+			  //myJsonObject = objectURL;
+			});
+		    return 0;
+		}
+		function init(){
+			var btnSend = document.getElementById('btnSend');
+			textAreaInt = document.getElementById('TextAreaInt');
+		}
+		function send(){
+			int = textAreaInt.value;
+			request = httpGet("https://stwom.herokuapp.com/"+int);
+			//var objetReponse = JSON.parse(request);
+		   	//console.log(objetReponse.x);
+			console.log(request.x);
+console.log("aaaa");
+		}
+		
+		</script>
+	</head>
+	<body onload="init()">
+		<Label>Entier :</label>
+		<TextArea id="TextAreaInt"></TextArea>
+		<button id="btnSend" onClick="send()">Envoyer</canvas>
+		<br>	
+		
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<style type="text/css">
+		</style>
+		<script>
+		var textAreaInt;
+		var int;
+		var canvas;
+		var ctx;
+		function httpGet(theUrl)
+		{
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+		    xmlHttp.send('Access-Control-Allow-Origin=*');
+		    return xmlHttp.responseText;
+		}
+		function init(){
+			canvas=document.getElementById('canvas');
+			ctx = canvas.getContext("2d");
+			ctx.beginPath();
+			ctx.arc(300, 300, 300, 0* Math.PI, 2 * Math.PI);
+			ctx.stroke();
+			var btnSend = document.getElementById('btnSend');
+			textAreaInt = document.getElementById('TextAreaInt');
+		}
+		function send(){
+			int = textAreaInt.value;
+			var request = httpGet("https://stwom.herokuapp.com/"+int);
+			var objetReponse = JSON.parse(request);
+		   	updateCanvas(objetReponse.x,objetReponse.y);	
+		}
+		function updateCanvas(x,y){
+			//ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.beginPath();
+			ctx.arc(x*15+20, y*15+20, 10, 0* Math.PI, 2 * Math.PI);
+			ctx.stroke();
+		}
+		
+		</script>
+	</head>
+	<body onload="init()">
+		<canvas id="canvas" width="600px" height="600px"></canvas>
+		<br>
+		<Label>Entier :</label>
+		<TextArea id="TextAreaInt"></TextArea>
+		<button id="btnSend" onClick="send()">Envoyer</canvas>
+		<br>	
+		
+	</body>
+</html>
